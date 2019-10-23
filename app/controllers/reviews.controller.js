@@ -1,3 +1,5 @@
+
+//123
 const Review=require('../models/reviews.model');
 const validator = require("email-validator");
 const config = require('../../config/config.js');
@@ -44,7 +46,7 @@ exports.post_review= function (req,res) {
 
         Review.postReview(user_data,id,user_id, function (result) {
             Review.review_author_id(id, function (result) {
-                //console.log(result)
+
                     for(let i of result){
                         console.log(i);
                         if( i['review_author_id']===user_id){
