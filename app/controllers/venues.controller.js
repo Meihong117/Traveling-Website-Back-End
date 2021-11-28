@@ -340,9 +340,6 @@ exports.post_photo= function (req,res)  {
                         }
 
                     })
-
-
-
             }
         }else{
             res.status(400).send("33333");

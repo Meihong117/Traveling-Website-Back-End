@@ -22,9 +22,6 @@ module.exports = function () {
     app.use(bodyParser.raw({type: 'image/jpeg',limit:'10mb'}));
     //app.use(expressFormData.parse({}));
 
-
-
-
     // ROUTES
     require('../app/routes/backdoor.routes')(app);
     require('../app/routes/users.routes')(app);

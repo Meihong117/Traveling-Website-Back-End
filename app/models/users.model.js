@@ -24,17 +24,6 @@ exports.insert=function (value, done) {
     const hash = getHash(value.password, salt);
 
     let values=[value.username, value.email,value.givenName,value.familyName,hash];//
-//select user_id from User where username=?, username, fun(err, rows){
-//
-// if (err){  postman de username he database li de mingzi buyizhi: so zhege mingzi buzai database
-//
-// insert into ...........
-// }else{   chulejieguo
-// return bad request
-// }
-//
-//
-// }
 
     db.getPool().query('INSERT INTO User (username, email, given_name, family_name, password) VALUES (?,?,?,?,?)', values, function(err, rows){
         if(err) return done(err);
@@ -42,14 +31,6 @@ exports.insert=function (value, done) {
     });
 };
 
-/*
-exports.get_username=function (value, done) {
-    db.getPool().query('SELECT username FROM User WHERE email = ?', value, function (err, rows) {  //email must match database email
-        console.log(rows);
-        if (err) return done(err, null);
-        return done(rows);
-    })
-}*/
 
 /////////////////////////////////////////////////PATCH/users/:id-////////////////////////////////////////////////////////////////
 exports.change=function (value,id, done) {
@@ -76,16 +57,6 @@ exports.logIn=function(user_data,done){
     if (user_data.username !== undefined) { //already have name
         db.getPool().query('SELECT * FROM User WHERE username = ?', user_info, function (err, rows) {    //get from postman username, if match go down
             if(rows[0]['password']!==user_data.password) return done(true, null);
-            // console.log(rows);
-            //{
-            //     user_id: 3,
-            //     username: 'superman',
-            //     email: 'superman@super.heroes',
-            //     given_name: 'Clark',
-            //     family_name: 'Kent',
-            //     password: 'kryptonite',
-            //     auth_token: '529aa1d71e5997a401b9b68b7ea4c2ae',
-            //     profile_photo_filename: null }
             if (err) {
                 return done(err, null);
             } else {

@@ -1,7 +1,7 @@
 const db=require('../../config/db');
 const crypto = require("crypto");
 const dateFormat = require('dateformat');
-//getVenueTokenbyId
+
 exports.getVenueTokenbyId= function(id, done){
     // console.log(id)
     db.getPool().query('SELECT * FROM User INNER JOIN Venue ON Venue.admin_id = User.user_id WHERE Venue.venue_id = ?', [id], function(err,result){
@@ -25,8 +25,6 @@ exports.getAllReview= function(id, done){
         }
     )
 }
-
-
 
 exports.get_all_Review=function (id, done) {
     db.getPool().query('SELECT reviewed_venue_id FROM Review WHERE reviewed_venue_id=?',id, function (err, rows) {
@@ -65,24 +63,7 @@ exports.postReview=function (user_data,id,user_id,  done) {
     });
 
 };
-/*exports.get_all_token=function ( done) {
 
-    db.getPool().query('select user_id, auth_token from User ', function(err, rows){
-        //console.log(rows);
-        if(err) return done(err);
-        return done(rows);
-    });
-
-};
-exports.venue_by_id=function (id, done) {
-
-    db.getPool().query('select * from Venue where venue_id=? ',id, function(err, rows){
-        //console.log(rows);
-        if(err) return done(err);
-        return done(rows);
-    });
-
-};*/
 exports.review_author_id=function (id,  done) {
 
     db.getPool().query('SELECT reviewed_venue_id, review_author_id FROM Review WHERE reviewed_venue_id=?', id, function(err, rows){
@@ -92,9 +73,6 @@ exports.review_author_id=function (id,  done) {
     });
 
 };
-
-
-
 
 //--------------------------------------------------GET/users/:id/reviews-----------------------------------------------
 exports.getUsersId=function (id, done) {
