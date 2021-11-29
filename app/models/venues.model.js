@@ -19,14 +19,14 @@ exports.get_all_venues=function (value, done) {
 
     GROUP BY Venue.venue_id order by meanStarRating DESC`;
     db.getPool().query(sql, value,  function (err, rows) {
-       // console.log(rows);
+        //console.log(rows);
         if(err) return done({"ERROR": "Error selecting"});
         return done(rows);
     })
 };
 exports.customize_query=function(sql, done){
     db.getPool().query(sql, function (err,result) {
-        if(err) console.log(err);
+        if(err) return done(err);
         return done(result);
     })
 };
@@ -70,6 +70,7 @@ exports.get_venue_id=function (venue_id, done) {
     let sql2=`SELECT photo_filename,photo_description,is_primary FROM VenuePhoto WHERE venue_id=?`;
 
     db.getPool().query(sql,values,  function (err, result) {
+        // console.log(result)
         if(err) return done({"ERROR": "Error selecting"});
         return done(result);
     })
@@ -101,9 +102,10 @@ exports.get_all_Venue=function (uid, done) {
     })
 };
 
-//------------------------------------------------------GET/categories--------------------------------------------------
+//---------------------------GET categories------------------------------
 exports.get_all_categories=function (done) {
     db.getPool().query('SELECT category_id AS categoryId,  category_name AS categoryName, category_description AS categoryDescription FROM VenueCategory', function (err, rows) {
+        console.log(rows)
         if(err) return done({"ERROR": "Error selecting"});
         return done(rows);
     })
@@ -135,7 +137,7 @@ exports.set_primary=function (done) {
 };
 exports.is_primary = function(){
     db.getPool().query("UPDATE VenuePhoto SET is_primary = 1",function (err) {
-        if(err) console.log(err);
+        if(err) return done(err);
     })
 };
 
@@ -163,7 +165,7 @@ exports.getVenueTokenbyId= function(id, done){
    // console.log(id)
     db.getPool().query('SELECT * FROM Venue INNER JOIN User ON user_id = admin_id  WHERE venue_id = ?', [id], function(err,result){
         // console.log(result)
-        if (err)  console.log(err);
+        if (err)  return done(err);
         // console.log("result " + result);
         return done(result);
 

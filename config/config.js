@@ -8,7 +8,7 @@ let config = convict({
     db: {
         host: { // host, rather than hostname, as mysql connection string uses 'host'
             format: String,
-            default: "mysql3.csse.canterbury.ac.nz"
+            default: "localhost"
         },
         user: {
             format: String,
