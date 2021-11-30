@@ -130,7 +130,9 @@ exports.get_venues= function (req,res) {
         }
     }else{
         User.get_all_venues(values, function (result) {
+            // console.log(result)
            for(let i of result){
+               
                i['modeCostRating']=parseInt(i["modeCostRating"]);
                i['meanStarRating']=Number(i["meanStarRating"]);
            }
