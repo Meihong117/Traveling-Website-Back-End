@@ -45,19 +45,15 @@ exports.read= function (req,res) {
 
 //-------------------------------------------------------POST/users----------------------------------------------------
 exports.register= async function (req,res) {
-    let values=Object.assign({}, req.body); //postman
-    //console.log(values.username);//username got from postman
-
-    //console.log(values.username);
-
+    let values=Object.assign({}, req.body); 
     if(!validator.validate(values['email']) || values['password'].length == 0 || !values['username'] || !values['email']){   //check validate email
         res.status(400).send("ffffff")
     }else{
             User.insert(values, function (err, id) {
                // console.log(err);//Duplicate entry 'superman' for key 'username'
                 if(err) {
-                    //console.log(err);
-                    return res.status(400).send("dddddddddddddddd");//check whether the username is already exist or not
+                    console.log("this is error form insert users" +err);
+                    return res.status(400).send("got 400 check whether the username is exisit or not");//check whether the username is already exist or not
                 }
                 //console.log(id);
                 res.status(201).send({"userId": id });
